@@ -1,3 +1,4 @@
+
 name: Automated Python Tests
 
 on:
@@ -7,21 +8,34 @@ on:
     branches: [main]
   workflow_dispatch:
 
-permissions:
-  contents: read
-
 jobs:
   test:
+    name: Python Unit Tests
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: CI_Automated_Testing_Project
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
       - name: Check Python syntax
-        run: python -m compileall -q grade_calculator.py tests
+        run: python -m compileall -q .
+
       - name: Run automated unit tests
-        run: python -m unittest discover -s tests -t . -v
-        working-directory: CI_Automated_Testing_Project
+        run: |
+          PYTHONPATH=. python -m unittest discover \
+            -s tests \
+            -p "test_*.py" \
+            -v
+
+      - name: Confirm successful testing
+        if: success()
+        run: echo "All automated tests passed successfully!"
