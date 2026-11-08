@@ -23,4 +23,5 @@ jobs:
       - name: Check Python syntax
         run: python -m compileall -q grade_calculator.py tests
       - name: Run automated unit tests
-        run: python -m unittest discover -s tests -v
+        run: python -m unittest discover -s tests -t . -v
+        working-directory: CI_Automated_Testing_Project
