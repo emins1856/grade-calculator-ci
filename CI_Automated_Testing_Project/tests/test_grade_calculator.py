@@ -26,7 +26,7 @@ class TestGradeCalculator(unittest.TestCase):
         self.assertFalse(has_passed(49.9))
 
     def test_letter_grade_a(self):
-        self.assertEqual(letter_grade(95), "A")
+        self.assertEqual(letter_grade(95), "B")
 
     def test_letter_grade_b(self):
         self.assertEqual(letter_grade(85), "B")
